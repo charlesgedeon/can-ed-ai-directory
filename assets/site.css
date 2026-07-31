@@ -142,9 +142,9 @@ ul { margin: 0; padding: 0; }
   padding: 12px 0 13px;
   border-bottom: 1px solid rgba(0,0,0,.15);
 }
-.ribbon__inner { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.ribbon__inner { display: flex; flex-direction: column; gap: 8px; }
 .ribbon__ticks {
-  display: flex; gap: 2px; flex: 1 1 320px; min-width: 220px;
+  display: flex; gap: 2px; width: 100%;
   height: 26px; align-items: flex-end;
 }
 .tick {
@@ -152,15 +152,15 @@ ul { margin: 0; padding: 0; }
   background: rgba(255,255,255,.22);
   border: 0; padding: 0; border-radius: 1px;
   cursor: pointer;
-  transition: height .16s ease, background .16s ease;
+  transition: background .12s ease;
 }
 .tick--has { background: #E8A9A0; height: 22px; }
 .ribbon__ticks:hover .tick { opacity: .5; }
 .ribbon__ticks .tick:hover,
-.ribbon__ticks .tick:focus-visible { opacity: 1; height: 26px; background: #fff; }
+.ribbon__ticks .tick:focus-visible { opacity: 1; background: #fff; }
 .ribbon__read {
   font-size: .8125rem; color: rgba(255,255,255,.9);
-  flex: 0 1 auto; min-height: 20px;
+  min-height: 20px;
 }
 .ribbon__read b { color: #fff; font-weight: 650; }
 
@@ -266,7 +266,7 @@ main { padding: 24px 0 64px; }
 .grid {
   display: grid; gap: 14px;
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  align-items: start;
+  align-items: stretch;
 }
 
 /* ---------- institution card ---------- */
@@ -276,6 +276,7 @@ main { padding: 24px 0 64px; }
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-1);
   overflow: hidden;
+  display: flex; flex-direction: column;
   transition: box-shadow .16s, border-color .16s;
 }
 .card:hover { box-shadow: var(--shadow-2); border-color: var(--line-strong); }
@@ -287,6 +288,7 @@ main { padding: 24px 0 64px; }
   width: 100%; text-align: left; background: none; border: 0;
   padding: 15px 16px; cursor: pointer;
   display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: start;
+  flex: 0 0 auto;
 }
 .card--empty .card__top { cursor: default; }
 .card__name {
@@ -307,6 +309,9 @@ main { padding: 24px 0 64px; }
 .card__tags {
   display: flex; flex-wrap: wrap; gap: 5px;
   padding: 0 16px 14px;
+  margin-top: auto; /* pushes tags (+ nodocs/docs after it) to the card's
+                        bottom, so short and long cards in the same row
+                        line up instead of trailing off at different heights */
 }
 .tag {
   font-size: .6875rem; font-weight: 600; letter-spacing: .015em;
@@ -572,7 +577,7 @@ table.cmp-table td li { margin-bottom: 4px; }
   .ribbon__ticks { height: 20px; gap: 1px; }
   .tick { height: 10px; min-width: 1px; }
   .tick--has { height: 17px; }
-  .ribbon__read { font-size: .75rem; flex-basis: 100%; }
+  .ribbon__read { font-size: .75rem; }
 
   /* collapse the filter controls behind a toggle on small screens */
   .filters-toggle {
