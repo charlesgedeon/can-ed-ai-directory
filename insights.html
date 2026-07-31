@@ -1,881 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Insights · Canadian University AI Approaches</title>
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    html { scroll-behavior: smooth; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights — Canadian University AI Approaches</title>
+<meta name="description" content="Patterns across Canadian university generative-AI guidance: who writes it, what they call it, and what gets left out.">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
+<body>
 
-<body class="bg-gray-100 font-sans antialiased">
+<a class="skip-link" href="#insights">Skip to the insights</a>
 
-  <!-- Header -->
-    <header class="bg-red-800 text-white shadow-md">
-    <div class="container mx-auto px-6 py-6">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<header class="masthead" data-chrome="header"></header>
 
-        <div>
-            <a href="index.html" class="inline-block">
-            <h1 class="text-3xl font-bold">Canadian University AI Approaches</h1>
-            </a>
-            <p class="text-lg text-red-200">A directory for educators and teaching centers.</p>
-        </div>
+<main>
+  <div class="wrap narrow">
 
-        <div class="flex flex-wrap items-center gap-4">
-            <nav class="flex items-center gap-4 text-sm font-semibold">
-            <a href="index.html" class="text-white hover:text-red-200 transition-colors duration-200">Home</a>
-            <a href="insights.html" class="text-white hover:text-red-200 transition-colors duration-200">Insights</a>
-            <a href="about.html" class="text-white hover:text-red-200 transition-colors duration-200">About</a>
-            <a href="https://charliegedeon.com/newsletter/" class="text-white hover:text-red-200 transition-colors duration-200">Subscribe to my Newsletter</a>
-            </nav>
-
-            <a href="https://charliegedeon.com/contact/" target="_blank" rel="noopener noreferrer"
-            class="inline-block bg-white text-red-700 px-5 py-2.5 rounded-lg font-semibold hover:bg-red-50 transition-colors duration-200">
-            Contact
-            </a>
-        </div>
-
-        </div>
+    <div class="panel">
+      <h2>What the directory adds up to</h2>
+      <p class="lede">
+        Read one university's AI guidance and you learn about that university.
+        Read forty and you start to see the shape of a national conversation, including
+        the parts nobody is having. These are patterns worth arguing with, not findings
+        to cite.
+      </p>
+      <p class="lede" style="margin-top:12px">
+        I don't have time to verify every claim below, and I'd rather say so than imply
+        a rigour I haven't put in. The aim is to start conversations between the people
+        doing this work, not to publish a literature review.
+      </p>
     </div>
-    </header>
 
-  <!-- Main (no left nav) -->
-  <main class="p-6">
-    <div class="container mx-auto">
-      <div class="max-w-4xl mx-auto">
+    <div id="insights"></div>
 
-        <!-- Top card -->
-        <div class="bg-white rounded-lg shadow p-5 mb-6">
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">How are these insights generated?</h2>
-          <p class="text-sm text-gray-700 leading-relaxed mb-4">
-            This page is a lightweight “what does the dataset show?” view, meant to spark ideas for educators and teaching & learning units.
-            I’ll keep expanding these as the directory grows.
-          </p>
-          <p class="text-sm text-gray-700 leading-relaxed">
-            I don't have the time to validate each of these fun facts, but I still believe they serve an important purpose: starting conversations. The goal is not to make a factually accurate literature review, but invite people to connect with each other of the ideas surfaced in these facts.
-          </p>
-        </div>
-
-        <!-- Accordion -->
-        <div class="space-y-4" id="fun-facts-root"></div>
-
-        <footer class="text-center text-gray-500 text-sm mt-10 mb-6">
-          Created by
-          <a href="https://charliegedeon.com" target="_blank" rel="noopener noreferrer"
-             class="text-red-700 hover:text-red-900 underline">Charlie Gedeon</a>.
-          Last updated: <span id="last-updated"></span>
-        </footer>
-
-      </div>
+    <div class="panel" style="margin-top:22px">
+      <h2>Noticed something I haven't?</h2>
+      <p class="lede">
+        If a pattern here is wrong, out of date, or missing your institution,
+        <a href="https://charliegedeon.com/contact/" target="_blank" rel="noopener noreferrer">send it over</a>.
+        Corrections are the most useful thing you can give this project.
+      </p>
     </div>
-  </main>
 
+  </div>
+</main>
+
+<footer data-chrome="footer"></footer>
+
+<script src="assets/data-snapshot.js"></script>
+<script src="assets/site.js"></script>
 <script>
-  // Last updated (same as home)
-  (function initDate(){
-    const now = new Date();
-    document.getElementById("last-updated").innerText =
-      now.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
-  })();
+renderChrome("insights");
 
-  /**
-   * Fun Facts (PLACEHOLDERS)
-   * Replace these with your real facts once you send the first set of instructions.
-   */
-  const funFacts = [
-    {
-        title: "How many unis call it a ‘policy’ vs ‘guidelines’?",
-        emoji: "📘",
-        body: `
-            <div class="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
-                <p class="text-xs text-blue-900 leading-relaxed">
-                    <strong>Disclosure:</strong>
-                    This insight was drafted from notes generated using <strong>NotebookLM</strong>.
-                </p>
-            </div>
+const openIds = new Set(
+  (location.hash.slice(1) ? [location.hash.slice(1)] : [])
+);
 
-            <p class="text-sm text-gray-700 leading-relaxed mb-4">
-            <strong>The short answer:</strong> almost none call it a <em>policy</em>.
-            Across Canadian universities, GenAI documents are overwhelmingly framed as
-            <strong>guidelines, guidance, or principles</strong> rather than as a single,
-            institution-wide AI policy.
-            </p>
+function render(data) {
+  const rows = (data.insights || [])
+    .filter(r => yes(r.Publish) && r.Title)
+    .sort((a, b) => (Number(a.Order) || 999) - (Number(b.Order) || 999));
 
-            <p class="text-sm text-gray-700 leading-relaxed mb-4">
-            This wording choice is not accidental. It reflects a pattern where AI is treated
-            primarily as a <strong>pedagogical issue</strong>, with flexibility left to instructors,
-            rather than as a rigid compliance framework.
-            </p>
+  const root = document.getElementById("insights");
 
-            <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-            📌 “Policy” is the exception
-            </h4>
-            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-            <li>
-                <a href="https://www.uottawa.ca/faculty-medicine/graduate-postdoctoral/research-writing-guidelines/policy-ai-llm-usage"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                University of Ottawa (Faculty of Medicine / Graduate Studies)
-                </a>
-            </li>
-            <li>
-                <a href="https://www.macewan.ca/about-macewan/teaching/resources/generative-ai/"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                MacEwan University
-                </a>
-            </li>
-            <li>
-                <a href="https://ai.uwo.ca/Guidance/index.html"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                Western University
-                </a>
-            </li>
-            <li>
-                <a href="https://www.sfu.ca/about/leadership-governance-strategy/pan-university-initiatives/ai-at-sfu/our-approach-to-ai.html"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                Simon Fraser University
-                </a>
-            </li>
-            </ul>
-
-            <p class="text-sm text-gray-700 leading-relaxed mb-4">
-            When “policy” appears, it is usually tied to <strong>institutional governance,
-            risk, or compliance</strong> rather than classroom practice.
-            </p>
-
-            <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-            🧩 “Guidelines” are the dominant framing
-            </h4>
-            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-            <li>
-                <a href="https://uwaterloo.ca/generative-ai/ai-use-principles-and-guidelines"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                University of Waterloo
-                </a>
-            </li>
-            <li>
-                <a href="https://www.concordia.ca/ctl/tech-tools/teach-with-technology/guidelines-gen-ai.html"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                Concordia University
-                </a>
-            </li>
-            <li>
-                <a href="https://algomau.ca/academics/academic-integrity-office/faculty-resources-on-academic-integrity/guidelines-for-the-responsible-use-of-generative-ai-in-teaching-and-learning/"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                Algoma University
-                </a>
-            </li>
-            <li>
-                <a href="https://www.trentu.ca/ai-trent/ai-guidance/guidance-faculty"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                Trent University
-                </a>
-            </li>
-            <li>
-                <a href="https://aieducation.trubox.ca/"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                Thompson Rivers University
-                </a>
-            </li>
-            </ul>
-
-            <p class="text-sm text-gray-700 leading-relaxed mb-4">
-            These documents are often described as <em>living</em> or <em>iterative</em> resources
-            and are commonly authored by teaching & learning units or libraries.
-            </p>
-
-            <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-            🧠 Some go even softer: “principles” and “recommendations”
-            </h4>
-            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-            <li>
-                <a href="https://genai.ubc.ca/guidance/principles/"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                University of British Columbia
-                </a>
-            </li>
-            <li>
-                <a href="https://teaching-learning.ucalgary.ca/resources-educators/generative-ai-teaching-and-learning"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                University of Calgary
-                </a>
-            </li>
-            <li>
-                <a href="https://www.yorku.ca/teachingandlearning/gen-ai/"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                York University
-                </a>
-            </li>
-            <li>
-                <a href="https://www.uoguelph.ca/vpacademic/avpa/generative-ai-teaching-and-learning/"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                University of Guelph
-                </a>
-            </li>
-            </ul>
-
-            <p class="text-sm text-gray-700 leading-relaxed">
-                <strong>Quick mental model:</strong><br>
-                <em>Policy</em> = laws of the land ·
-                <em>Guidelines</em> = rules of the house ·
-                <em>Principles</em> = how we want to think about it.
-            </p>
-        `
-    },
-    {
-        title: "Who actually writes GenAI guidance at Canadian universities?",
-        emoji: "✍️",
-        body: `
-            <div class="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
-            <p class="text-xs text-blue-900 leading-relaxed">
-                <strong>Disclosure:</strong>
-                This insight reflects synthesis by <strong>ChatGPT 5.2</strong> across the resources in this directory,
-                using URL patterns and known institutional units to infer authorship.
-            </p>
-            </div>
-
-            <p class="text-sm text-gray-700 leading-relaxed mb-4">
-            One of the clearest patterns in the dataset is <strong>who</strong> is tasked with
-            authoring GenAI guidance. Rather than being owned by a single office,
-            responsibility is distributed across several institutional actors.
-            </p>
-
-            <h4 class="text-sm font-semibold text-gray-800 mb-2">
-            The three most common authors
-            </h4>
-            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-            <li>
-                <strong>Teaching &amp; Learning units:</strong> often framing AI through pedagogy,
-                assessment design, and instructor autonomy.
-            </li>
-            <li>
-                <strong>Libraries: </strong>especially where AI intersects with research literacy,
-                citation, and student-facing use.
-            </li>
-            <li>
-                <strong>Provost or central academic offices:</strong> typically when guidance is
-                tied to institutional strategy or academic integrity.
-            </li>
-            </ul>
-
-            <p class="text-sm text-gray-700 leading-relaxed mb-4">
-            Less commonly, guidance is authored at the <strong>faculty or school level</strong>
-            (for example, in medicine or graduate studies), usually where AI use has
-            discipline-specific stakes.
-            </p>
-
-            <p class="text-sm text-gray-700 leading-relaxed">
-            <strong>Why this matters:</strong> who writes the document often signals
-            <em>how AI is being framed</em>—as a teaching practice issue, a research skills issue,
-            or a governance concern—long before the word “policy” ever appears.
-            </p>
-        `
-    },
-    {
-      title: "The environment: from hidden cost to strategic pillar",
-      emoji: "🌱",
-      body: `
-          <div class="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
-              <p class="text-xs text-blue-900 leading-relaxed">
-                  <strong>Disclosure:</strong>
-                  This insight was drafted from notes generated using <strong>NotebookLM</strong>.
-              </p>
-          </div>
-
-          <p class="text-sm text-gray-700 leading-relaxed mb-4">
-              <strong>The short answer:</strong> most universities barely mention the environmental
-              footprint of generative AI but the ones that do, do so very deliberately.
-          </p>
-
-          <p class="text-sm text-gray-700 leading-relaxed mb-4">
-              Across Canadian institutions, environmental impact is usually treated as an
-              <em>implicit</em> concern (if it appears at all). Only a small subset explicitly
-              acknowledge that “the cloud” has a physical footprint, powered by data centres
-              that consume significant amounts of electricity, water, and raw materials.
-          </p>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              🚰 Making energy visible
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://lib.unb.ca/guides/artificial-intelligence-ai-undergraduate-students"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  University of New Brunswick (UNB)
-                  </a>
-                  explicitly warns that data centres require enormous amounts of energy and water
-                  for cooling, noting that a single generative AI query can consume far more energy
-                  than a standard Google search.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              🌿 Sustainability as strategy
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://www.kpu.ca/generative-ai"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Kwantlen Polytechnic University (KPU)
-                  </a>
-                  lists <strong>Sustainability</strong> as one of its five Generative AI Strategic
-                  Commitments, stating that AI adoption decisions should be informed in part by
-                  analysis of environmental impact.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              ⚡ Mitigation over avoidance
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://genai.ubc.ca/guidance/principles/"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  University of British Columbia (UBC)
-                  </a>
-                  includes <em>Mitigating Ecological Impacts</em> in its GenAI principles, advising
-                  users to favour vendors that leverage renewable energy to offset the significant
-                  electricity demands of AI systems.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              ⚖️ Environmental impact as an ethical issue
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://sites.google.com/view/instructional-resources/guidance-on-using-generative-ai-in-teaching-and-learning"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  University of Prince Edward Island (UPEI)
-                  </a>
-              </li>
-              <li>
-                  <a href="https://www.concordia.ca/ctl/tech-tools/teach-with-technology/guidelines-gen-ai.html"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Concordia University
-                  </a>
-              </li>
-              <li>
-                  <a href="https://researchcentres.wlu.ca/teaching-and-learning/building/generative-ai-in-teaching-and-learning.html"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Wilfrid Laurier University
-                  </a>
-              </li>
-          </ul>
-
-          <p class="text-sm text-gray-700 leading-relaxed mb-4">
-              These institutions reference environmental costs alongside other ethical risks
-              such as labour exploitation, bias, and data governance, positioning energy use
-              and carbon footprint as part of AI’s broader ethical profile.
-          </p>
-
-          <div class="mt-4 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
-              <p class="text-xs text-gray-700 leading-relaxed">
-                  <strong>Context:</strong>
-                  The environmental impact of data centres long predates generative AI.
-                  Cloud computing, streaming, and large-scale digital infrastructure have raised
-                  similar concerns for over a decade. Today, there is active—and sometimes
-                  contentious—research on the marginal environmental impact of generative AI,
-                  including debates about efficiency gains, rebound effects, and limited vendor
-                  transparency.
-              </p>
-          </div>
-      `
-    },
-    {
-        title: "Consciousness: the “math, not magic” defence",
-        emoji: "🧠",
-        body: `
-            <div class="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
-                <p class="text-xs text-blue-900 leading-relaxed">
-                    <strong>Disclosure:</strong>
-                    This insight was drafted from notes generated using <strong>NotebookLM</strong>.
-                </p>
-            </div>
-
-            <p class="text-sm text-gray-700 leading-relaxed mb-4">
-                <strong>The short answer:</strong> universities generally don’t treat “AI consciousness” as a live possibility to plan for —
-                they treat it as a <strong>misconception to correct</strong>.
-                The guidance focuses heavily on <strong>de-anthropomorphizing</strong> these tools so students don’t trust them too deeply
-                (or mistake fluency for understanding).
-            </p>
-
-            <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-                🚫 “Not sentient” (and not doing your thinking)
-            </h4>
-            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-                <li>
-                    <a href="https://wordpress.viu.ca/ciel/2023/09/01/what-does-ai-mean-in-your-classroom/"
-                    target="_blank" rel="noopener noreferrer"
-                    class="text-red-700 hover:underline">
-                    Vancouver Island University (VIU)
-                    </a>
-                    is explicit: AI is not sentient, cannot reason, and cannot think critically, meaning humans still have to do that work.
-                </li>
-            </ul>
-
-            <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-                🧍‍♂️ Anthropomorphism warnings
-            </h4>
-            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-                <li>
-                    <a href="https://cte.capilanou.ca/generative-ai/"
-                    target="_blank" rel="noopener noreferrer"
-                    class="text-red-700 hover:underline">
-                    Capilano University
-                    </a>
-                    warns against attributing human-like qualities to LLMs, especially when we describe them with verbs like “reason,”
-                    “create,” or “imagine.”
-                </li>
-            </ul>
-
-            <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-                📊 “Predictive text” framing: probability, not understanding
-            </h4>
-            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-                <li>
-                    <a href="https://library.uwinnipeg.ca/borrowing-and-services/help-with-research/chatgpt-and-genai.html"
-                    target="_blank" rel="noopener noreferrer"
-                    class="text-red-700 hover:underline">
-                    University of Winnipeg
-                    </a>
-                    emphasizes how these systems generate plausible next words from patterns, a statistical process, not comprehension.
-                </li>
-                <li>
-                    <a href="https://teachingkb.mcgill.ca/tlk/using-generative-ai-in-teaching-and-learning"
-                    target="_blank" rel="noopener noreferrer"
-                    class="text-red-700 hover:underline">
-                    McGill University
-                    </a>
-                    similarly frames LLMs as tools that can sound confident while being wrong, reinforcing the need for verification and judgement.
-                </li>
-            </ul>
-
-            <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-                👤 “Human-in-the-loop”: the accountability anchor
-            </h4>
-            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-                <li>
-                    <a href="https://www.queensu.ca/provost/teaching-and-learning/statements-guidelines-and-resources/teaching-and-learning-statements"
-                    target="_blank" rel="noopener noreferrer"
-                    class="text-red-700 hover:underline">
-                    Queen’s University
-                    </a>
-                    reinforces that responsibility and academic judgement remain with the human user, regardless of how polished the output looks.
-                </li>
-                <li>
-                    <a href="https://ai.uwo.ca/Guidance/index.html"
-                    target="_blank" rel="noopener noreferrer"
-                    class="text-red-700 hover:underline">
-                    Western University
-                    </a>
-                    similarly emphasizes informed, accountable use, treating AI as an assistive system, not an authority.
-                </li>
-            </ul>
-
-            <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-                🔭 A future-facing counterpoint (from industry)
-            </h4>
-            <p class="text-sm text-gray-700 leading-relaxed mb-4">
-                Interestingly, Microsoft AI CEO Mustafa Suleyman argues that what he calls
-                <em>“seemingly conscious AI”</em> is approaching, not because machines are truly conscious,
-                but because they may soon be able to <strong>convince people</strong> they are.
-                His essay is here:
-                <a href="https://mustafa-suleyman.ai/seemingly-conscious-ai-is-coming"
-                target="_blank" rel="noopener noreferrer"
-                class="text-red-700 hover:underline">
-                    Seemingly conscious AI is coming
-                </a>.
-            </p>
-
-            <div class="mt-4 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
-                <p class="text-xs text-gray-700 leading-relaxed">
-                    <strong>Why this matters for universities:</strong>
-                    Conversations about “AI consciousness” can feel speculative or philosophically distant from classroom realities.
-                    But higher education is uniquely positioned to shape how future generations interpret human-like AI:
-                    what it means to trust it, how to resist misplaced authority, and how to build literacy that separates
-                    <em>appearance</em> (fluency, emotion, confidence) from <em>capability</em> (reasoning, evidence, accountability).
-                </p>
-            </div>
-
-            <p class="text-sm text-gray-700 leading-relaxed mt-4">
-                <strong>Notable omission:</strong> most guidance focuses on current technical limitations rather than the longer-run social dynamics
-                that could emerge if “seeming conscious” systems become common. This is especially true in education, where authority, dependency, and identity
-                formation are already high-stakes.
-            </p>
-        `
-    },
-    {
-      title: "Indigenous data sovereignty: whose data is AI allowed to learn from?",
-      emoji: "🪶",
-      body: `
-          <div class="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
-              <p class="text-xs text-blue-900 leading-relaxed">
-                  <strong>Disclosure:</strong>
-                  This insight was drafted from notes generated using <strong>NotebookLM</strong>.
-              </p>
-          </div>
-
-          <p class="text-sm text-gray-700 leading-relaxed mb-4">
-              <strong>The short answer:</strong> Indigenous Data Sovereignty is emerging as a critical,
-              but still highly specialized, component of Canadian university AI guidance.
-              While many institutions include land acknowledgements, only a small number
-              explicitly address how Indigenous knowledge should, or should not, be used in AI systems.
-          </p>
-
-          <p class="text-sm text-gray-700 leading-relaxed mb-4">
-              Where it does appear, Indigenous Data Sovereignty reframes AI not as a neutral tool,
-              but as a data governance challenge, one that raises questions of consent, control,
-              and the historical extraction of knowledge.
-          </p>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              ⚠️ The core conflict: AI training vs Indigenous rights
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://www.concordia.ca/ctl/tech-tools/teach-with-technology/guidelines-gen-ai.html"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Concordia University
-                  </a>
-                  explicitly warns that AI models can appropriate Indigenous languages, knowledge systems,
-                  and worldviews without free, prior, and informed consent, leading to bias,
-                  misrepresentation, or erasure.
-              </li>
-              <li>
-                  <a href="https://www.kpu.ca/generative-ai"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Kwantlen Polytechnic University (KPU)
-                  </a>
-                  highlights how AI systems can reproduce systemic inequities, reinforcing the need
-                  for decolonial and anti-racist approaches in AI adoption.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              🚫 Explicit protocols and “no-go” zones
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://www.kpu.ca/generative-ai"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  KPU
-                  </a>
-                  provides one of the clearest directives in the dataset:
-                  avoid using AI to generate, reproduce, or distribute Indigenous knowledge
-                  without explicit permission.
-              </li>
-              <li>
-                  The same guidance requires users to respect Indigenous protocols and
-                  community-specific data governance, even when information is publicly accessible.
-              </li>
-              <li>
-                  <a href="https://genai.ubc.ca/guidance/principles/"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  University of British Columbia (UBC)
-                  </a>
-                  advises consultation with its Indigenous Guiding Network when reviewing AI outputs
-                  for cultural bias or potential human rights impacts.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              🧭 Decolonization as a strategic commitment
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://www.kpu.ca/generative-ai"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  KPU
-                  </a>
-                  names <strong>Justice</strong> as one of its five Generative AI Strategic Commitments,
-                  explicitly centering decolonial and antiracist practices in AI adoption.
-              </li>
-              <li>
-                  <a href="https://studio.smu.ca/ai-in-teaching-and-learning"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Saint Mary’s University
-                  </a>
-                  classifies culturally significant Indigenous knowledge as sensitive data
-                  that must not be entered into AI tools, alongside medical and biometric information.
-              </li>
-              <li>
-                  <a href="https://www.sfu.ca/about/leadership-governance-strategy/pan-university-initiatives/ai-at-sfu/our-approach-to-ai.html"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Simon Fraser University (SFU)
-                  </a>
-                  emphasizes incorporating Indigenous perspectives into research ethics,
-                  shaping how AI is governed at the institutional level.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              📚 Building literacy through external frameworks
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://library.nscad.ca/AI"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  NSCAD University
-                  </a>
-                  directs users to the <em>Indigenous Protocol and Artificial Intelligence Position Paper</em>
-                  as foundational reading.
-              </li>
-              <li>
-                  <a href="https://www.concordia.ca/ctl/tech-tools/teach-with-technology/guidelines-gen-ai.html"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Concordia University
-                  </a>
-                  points faculty toward the UN’s work on Indigenous Peoples’ rights in the age of AI
-                  and its internal Decolonization and Indigenization Hub.
-              </li>
-          </ul>
-
-          <div class="mt-4 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
-              <p class="text-xs text-gray-700 leading-relaxed">
-                  <strong>What the dataset suggests:</strong>
-                  A quiet but meaningful shift is underway, from treating Indigenous knowledge as
-                  reusable “content” to treating it as <strong>governed data</strong>.
-                  In this framing, permission is not implied by access, and AI use is constrained
-                  by community-defined sovereignty rather than institutional convenience.
-              </p>
-          </div>
-      `
-    },
-    {
-      title: "Mental health: is AI reducing stress, or quietly amplifying it?",
-      emoji: "🧩",
-      body: `
-          <div class="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
-              <p class="text-xs text-blue-900 leading-relaxed">
-                  <strong>Disclosure:</strong>
-                  This insight was drafted from notes generated using <strong>NotebookLM</strong>.
-              </p>
-          </div>
-
-          <p class="text-sm text-gray-700 leading-relaxed mb-4">
-              <strong>The short answer:</strong> conversations about mental health and generative AI
-              are more fragmented than discussions of academic integrity, but clear patterns are emerging.
-              Across the dataset, AI is increasingly linked to student anxiety, the pressure of surveillance,
-              and concerns about social isolation.
-          </p>
-
-          <p class="text-sm text-gray-700 leading-relaxed mb-4">
-              Rather than treating mental health as a standalone topic, most universities address it indirectly,
-              through decisions about AI detection, classroom trust, workload pressure, and the preservation
-              of human relationships in learning.
-          </p>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              👁️ Anxiety, surveillance, and false accusation
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://teachingkb.mcgill.ca/tlk/using-generative-ai-in-teaching-and-learning"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  McGill University
-                  </a>
-                  explicitly advises against the use of AI detection tools, warning that false positives
-                  can lead to wrongful accusations and create a negative classroom climate,
-                  resulting in unnecessary stress and anxiety for students and instructors alike.
-              </li>
-              <li>
-                  <a href="https://tlc.ontariotechu.ca/nexthub/artificial-intelligence/for-instructors/index.php"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Ontario Tech University
-                  </a>
-                  frames the rise of AI detection as an “arms race,” raising concerns about whether
-                  the educator’s role becomes one of trust or one of surveillance, a tension with
-                  psychological and relational consequences.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              📚 AI use as a signal of pressure, not just misconduct
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://tlc.ontariotechu.ca/nexthub/artificial-intelligence/for-instructors/index.php"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Ontario Tech University
-                  </a>
-                  notes that students’ self-reported reasons for academic misconduct,
-                  now including AI misuse, often stem from performance pressure,
-                  high-stakes assessment, and overwhelming workload.
-              </li>
-              <li>
-                  <a href="https://researchcentres.wlu.ca/teaching-and-learning/building/generative-ai-in-teaching-and-learning.html"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Wilfrid Laurier University
-                  </a>
-                  points educators toward scholarship linking generative AI,
-                  temporality, and anxiety, highlighting how the pursuit of speed
-                  and immediacy can intensify stress rather than relieve it.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              🤝 Human connection vs social isolation
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://www.kpu.ca/generative-ai"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Kwantlen Polytechnic University (KPU)
-                  </a>
-                  names “Experience” as a strategic commitment,
-                  explicitly aiming to maintain meaningful human connections
-                  in AI-enhanced learning environments.
-              </li>
-              <li>
-                  <a href="https://www.torontomu.ca/centre-for-excellence-in-learning-and-teaching/teaching-resources1/generative-artificial-intelligence/"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Toronto Metropolitan University (TMU)
-                  </a>
-                  emphasizes reciprocity, care, and the social dynamics of learning,
-                  cautioning against letting AI displace relational aspects of education.
-              </li>
-              <li>
-                  <a href="https://ctl.uregina.ca/generative-ai-at-the-university-of-regina"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  University of Regina
-                  </a>
-                  acknowledges the uncertainty surrounding AI
-                  and commits to approaching it with curiosity, care, and humanity.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              🧠 When AI reduces anxiety, not increases it
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://ubishops.libguides.com/AI-Research"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Bishop’s University
-                  </a>
-                  notes that AI can act as a judgment-free space for students who feel
-                  shy or embarrassed asking questions, potentially helping them build
-                  confidence before engaging with instructors or peers.
-              </li>
-              <li>
-                  <a href="https://studio.smu.ca/ai-in-teaching-and-learning"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Saint Mary’s University
-                  </a>
-                  suggests that AI can boost confidence in writing and communication,
-                  functioning as an always-available assistant rather than a replacement
-                  for human feedback.
-              </li>
-          </ul>
-
-          <h4 class="text-sm font-semibold text-gray-800 mt-4 mb-2">
-              🧩 Managing distress when things go wrong
-          </h4>
-          <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
-              <li>
-                  <a href="https://www.queensu.ca/provost/teaching-and-learning/statements-guidelines-and-resources/teaching-and-learning-statements"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  Queen’s University
-                  </a>
-                  provides guidance on supporting students in distress,
-                  emphasizing compassion, de-escalation, and referrals to care services
-                  during difficult classroom conversations.
-              </li>
-              <li>
-                  <a href="https://www.torontomu.ca/centre-for-excellence-in-learning-and-teaching/teaching-resources1/generative-artificial-intelligence/"
-                  target="_blank" rel="noopener noreferrer"
-                  class="text-red-700 hover:underline">
-                  TMU
-                  </a>
-                  advises instructors to approach suspected AI misuse
-                  through non-adversarial, educational conversations
-                  to reduce conflict and stress.
-              </li>
-          </ul>
-
-          <div class="mt-4 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
-              <p class="text-xs text-gray-700 leading-relaxed">
-                  <strong>What the dataset suggests:</strong>
-                  Mental health appears in AI guidance less as a standalone policy issue
-                  and more as an environmental outcome.
-                  Decisions about surveillance, trust, workload, and human connection
-                  quietly shape whether AI becomes a stressor or a support in students’ lives.
-              </p>
-          </div>
-      `
-    },
-
-
-
-  ];
-
-  function renderFunFacts(){
-    const root = document.getElementById("fun-facts-root");
-    root.innerHTML = "";
-
-    funFacts.forEach((f, i) => {
-      const el = document.createElement("details");
-      el.className = "bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 overflow-hidden";
-      el.innerHTML = `
-        <summary class="cursor-pointer select-none px-5 py-4 flex items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <span class="text-xl">${f.emoji || "✨"}</span>
-            <h3 class="text-base md:text-lg font-semibold text-gray-800">${f.title}</h3>
-          </div>
-          <span class="text-gray-400 text-sm">Click</span>
-        </summary>
-        <div class="px-5 pb-5 pt-1 border-t border-gray-100">
-          ${f.body}
-        </div>
-      `;
-      root.appendChild(el);
-    });
+  if (!rows.length) {
+    root.innerHTML = `
+      <div class="empty">
+        <h3>No insights published yet</h3>
+        <p>Add a row to the insights tab of the sheet and it will show up here.</p>
+      </div>`;
+    return;
   }
 
-  renderFunFacts();
-</script>
+  root.innerHTML = rows.map(r => {
+    const id = slug(r.Title);
+    return `
+      <details class="insight" id="${id}"${openIds.has(id) ? " open" : ""}>
+        <summary>
+          ${r.Emoji ? `<span class="insight__emoji" aria-hidden="true">${esc(r.Emoji)}</span>` : ""}
+          <span class="insight__title">${esc(r.Title)}</span>
+          <span class="insight__caret">${ICON.chevron}</span>
+        </summary>
+        <div class="insight__body prose">
+          ${markdown(r["Body (Markdown)"] || r.Summary || "")}
+        </div>
+      </details>`;
+  }).join("");
 
+  // Keep the address bar pointed at whichever insight is open, so any
+  // single insight can be linked to directly.
+  root.querySelectorAll("details").forEach(d => {
+    d.addEventListener("toggle", () => {
+      if (d.open) history.replaceState(null, "", "#" + d.id);
+    });
+  });
+
+  if (openIds.size) {
+    const el = document.getElementById([...openIds][0]);
+    if (el) el.scrollIntoView({ block: "start" });
+  }
+}
+
+loadData(render);
+</script>
 </body>
 </html>

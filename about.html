@@ -1,112 +1,118 @@
-<!-- filepath: /Users/charlieg/Documents/GitHub/can-ed-ai-directory/about.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About · Canadian University AI Approaches</title>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        html { scroll-behavior: smooth; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Canadian University AI Approaches</title>
+<meta name="description" content="Who makes this directory of Canadian university generative-AI guidance, how it's maintained, and how to contribute.">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
+<body>
 
-<body class="bg-gray-100 font-sans antialiased">
+<a class="skip-link" href="#main">Skip to the content</a>
 
-    <!-- Header -->
-    <header class="bg-red-800 text-white shadow-md">
-        <div class="container mx-auto px-6 py-6">
-            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<header class="masthead" data-chrome="header"></header>
 
-                <div>
-                    <a href="index.html" class="inline-block">
-                        <h1 class="text-3xl font-bold">Canadian University AI Approaches</h1>
-                    </a>
-                    <p class="text-lg text-red-200">A directory for educators and teaching centers.</p>
-                </div>
+<main id="main">
+  <div class="wrap narrow">
 
-                <div class="flex flex-wrap items-center gap-4">
-                    <nav class="flex items-center gap-4 text-sm font-semibold">
-                        <a href="index.html" class="text-white hover:text-red-200 transition-colors duration-200">Home</a>
-                        <a href="insights.html" class="text-white hover:text-red-200 transition-colors duration-200">Insights</a>
-                        <a href="about.html" class="text-white hover:text-red-200 transition-colors duration-200">About</a>
-                        <a href="https://charliegedeon.com/newsletter/" class="text-white hover:text-red-200 transition-colors duration-200">Subscribe to my Newsletter</a>
-                    </nav>
+    <div class="panel">
+      <h2>What this is</h2>
+      <p class="prose">
+        A directory of the generative-AI policies, guidelines, and teaching resources
+        published by Canadian post-secondary institutions, built so that teaching and
+        learning units, educational developers, and instructors can find what peer
+        institutions have said, compare approaches, and stop reinventing documents
+        that already exist three provinces over.
+      </p>
+      <p class="prose" style="margin-top:12px" id="coverage-line"></p>
+      <p class="prose" style="margin-top:12px">
+        Every institution in the country is listed, including the ones with nothing
+        published. Those gaps are part of the picture.
+      </p>
+    </div>
 
-                    <a href="https://charliegedeon.com/contact/" target="_blank" rel="noopener noreferrer"
-                        class="inline-block bg-white text-red-700 px-5 py-2.5 rounded-lg font-semibold hover:bg-red-50 transition-colors duration-200">
-                        Contact
-                    </a>
-                </div>
+    <div class="panel">
+      <h2>Watch the two-minute introduction</h2>
+      <div style="border-radius:10px;overflow:hidden;background:#1C1917;aspect-ratio:16/9">
+        <iframe style="width:100%;height:100%;border:0"
+          src="https://www.youtube.com/embed/kvq1nOqjMWk"
+          title="Introduction to the Canadian University AI Approaches directory"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
 
-            </div>
-        </div>
-    </header>
+    <div class="panel">
+      <h2>How it's put together</h2>
+      <p class="prose">
+        The whole directory is one Google Sheet. Each row is a single published
+        document, tagged with who issued it, who it addresses, and what kind of
+        document it is. The site reads that sheet directly, so a correction goes
+        live on the next page load rather than waiting on a code change.
+      </p>
+      <p class="prose" style="margin-top:12px">
+        Categories like <em>issued by</em> and <em>audience</em> are my reading of each
+        document, not the institution's own label. Reasonable people will disagree with
+        some of them, and I'd like to hear about it when they do.
+      </p>
+    </div>
 
-    <!-- Main -->
-    <main class="p-6">
-        <div class="container mx-auto">
-            <div class="max-w-4xl mx-auto">
+    <div class="panel">
+      <h2>Help keep it accurate</h2>
+      <p class="prose">
+        Missing resource, dead link, misread tag, new document published since I last
+        looked — all of it is useful.
+        <a href="https://charliegedeon.com/contact/" target="_blank" rel="noopener noreferrer">Send it to me</a>
+        and I'll fold it in.
+      </p>
+    </div>
 
-                <!-- Video embed -->
-                <div class="bg-white rounded-lg shadow p-6 mb-8">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Watch: Intro to the Directory</h2>
-                    <div class="aspect-video rounded-lg overflow-hidden bg-gray-900">
-                        <iframe width="100%" height="500px" src="https://www.youtube.com/embed/kvq1nOqjMWk?si=ScWnolcFHZ3ZvvYk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
+    <div class="panel">
+      <h2>Who's behind it</h2>
+      <p class="prose">
+        I'm Charlie Gedeon, a university instructor and instructional and UX designer.
+        In 2025 I gave a
+        <a href="https://www.youtube.com/watch?v=m8WomdCLBqE" target="_blank" rel="noopener noreferrer">TEDx talk</a>
+        on AI in education that's since passed 200,000 views. I built this because I kept
+        being asked the same question — <em>what is everyone else doing?</em> — and kept
+        not having a good answer.
+      </p>
+      <p class="prose" style="margin-top:12px">
+        You can find me on
+        <a href="https://www.linkedin.com/in/charlesgedeon/" target="_blank" rel="noopener noreferrer">LinkedIn</a>,
+        on <a href="https://www.youtube.com/channel/UCTAbJsNNMtsOgGZYAKtF8cA" target="_blank" rel="noopener noreferrer">YouTube</a>,
+        or in your inbox via <a href="https://charliegedeon.com/newsletter/" target="_blank" rel="noopener noreferrer">the newsletter</a>.
+      </p>
+    </div>
 
-                <!-- About this directory -->
-                <div class="bg-white rounded-lg shadow p-6 mb-8">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">About this directory</h2>
-                    <p class="text-sm text-gray-700 leading-relaxed mb-6">
-                        This simple directory is meant to help Canadian university teaching and learning units (e.g., Centres for Teaching &amp; Learning / Teaching Commons / Educational Development)
-                        and Canadian instructors find, compare, and share guidance on generative AI in higher education.
-                        If I'm missing a resource, or if a tag is misattributed, please
-                        <a href="https://charliegedeon.com/contact/" target="_blank" rel="noopener noreferrer"
-                             class="text-red-700 hover:text-red-900 underline">contact me</a>.
-                    </p>
-                </div>
+  </div>
+</main>
 
-                <!-- Who is this? -->
-                <div class="bg-white rounded-lg shadow p-6 mb-8">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Who is this?</h2>
-                    <p class="text-sm text-gray-700 leading-relaxed mb-4">
-                        👋 Hello, I'm Charlie Gedeon, a university instructor, instructional and UX designer. In 2025, I gave a
-                        <a href="https://www.youtube.com/watch?v=m8WomdCLBqE" target="_blank" rel="noopener noreferrer"
-                             class="text-red-700 hover:text-red-900 underline">TEDx Talk</a>
-                        on AI in education that has gained over 200,000 views.
-                    </p>
-                    <p class="text-sm text-gray-700 leading-relaxed">
-                        Enjoyed this resource? Add me on
-                        <a href="https://www.linkedin.com/in/charlesgedeon/" target="_blank" rel="noopener noreferrer"
-                             class="text-red-700 hover:text-red-900 underline">LinkedIn</a>
-                        and subscribe to my
-                        <a href="https://www.youtube.com/channel/UCTAbJsNNMtsOgGZYAKtF8cA" target="_blank" rel="noopener noreferrer"
-                             class="text-red-700 hover:text-red-900 underline">YouTube channel</a>.
-                    </p>
-                </div>
+<footer data-chrome="footer"></footer>
 
-                
-                <footer class="text-center text-gray-500 text-sm mt-10 mb-6">
-                    Created by
-                    <a href="https://charliegedeon.com" target="_blank" rel="noopener noreferrer"
-                         class="text-red-700 hover:text-red-900 underline">Charlie Gedeon</a>.
-                    Last updated: <span id="last-updated"></span>
-                </footer>
-
-            </div>
-        </div>
-    </main>
-
+<script src="assets/data-snapshot.js"></script>
+<script src="assets/site.js"></script>
 <script>
-    (function initDate(){
-        const now = new Date();
-        document.getElementById("last-updated").innerText =
-            now.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
-    })();
-</script>
+renderChrome("about");
 
+loadData(data => {
+  const insts = (data.institutions || []).filter(i => yes(i.Publish) && i.Institution);
+  const docs  = (data.resources || []).filter(r => yes(r.Publish));
+  const known = new Set(insts.map(i => fold(i.Institution)));
+  const withDocs = new Set(docs.map(d => fold(d.Institution)).filter(n => known.has(n)));
+  const provinces = new Set(insts.map(i => i.Province).filter(Boolean));
+
+  document.getElementById("coverage-line").innerHTML =
+    `Right now it tracks <strong>${insts.length} institutions</strong> across ` +
+    `<strong>${provinces.size} provinces</strong>, of which ` +
+    `<strong>${withDocs.size}</strong> have published something public. ` +
+    `That's <strong>${docs.length} documents</strong> in total.`;
+});
+</script>
 </body>
 </html>

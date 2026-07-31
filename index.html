@@ -1,677 +1,627 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Canadian University AI Approaches Directory</title>
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    html { scroll-behavior: smooth; }
-    .tag-pill { border: 1px solid rgba(0,0,0,0.08); }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canadian University AI Approaches — the directory</title>
+<meta name="description" content="A searchable directory of generative-AI policies, guidelines, and teaching resources published by Canadian universities.">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
+<body>
 
-<body class="bg-gray-100 font-sans antialiased">
+<a class="skip-link" href="#results">Skip to the directory</a>
 
-  <!-- Header -->
-  <header class="bg-red-800 text-white shadow-md">
-    <div class="container mx-auto px-6 py-6">
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<header class="masthead" data-chrome="header"></header>
 
-        <div>
-          <a href="index.html" class="inline-block">
-            <h1 class="text-3xl font-bold">Canadian University AI Approaches</h1>
-          </a>
-          <p class="text-lg text-red-200">A directory for educators and teaching centers.</p>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-4">
-          <nav class="flex items-center gap-4 text-sm font-semibold">
-            <a href="index.html" class="text-white hover:text-red-200 transition-colors duration-200">Home</a>
-            <a href="insights.html" class="text-white hover:text-red-200 transition-colors duration-200">Insights</a>
-            <a href="about.html" class="text-white hover:text-red-200 transition-colors duration-200">About</a>
-            <a href="https://charliegedeon.com/newsletter/" class="text-white hover:text-red-200 transition-colors duration-200">Subscribe to my Newsletter</a>
-          </nav>
-
-          <a href="https://charliegedeon.com/contact/" target="_blank" rel="noopener noreferrer"
-            class="inline-block bg-white text-red-700 px-5 py-2.5 rounded-lg font-semibold hover:bg-red-50 transition-colors duration-200">
-            Contact
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </header>
-
-  <div class="flex pt-0">
-
-    <!-- Left Nav (auto-generated) -->
-    <nav class="w-64 bg-gray-800 text-white p-6 hidden md:block sticky top-0 h-screen overflow-y-auto flex flex-col">
-      <ul class="space-y-4 flex-1" id="province-nav">
-        <li class="font-bold text-gray-400 uppercase text-sm">Provinces</li>
-      </ul>
-    </nav>
-
-    <!-- Main -->
-    <main class="flex-1 p-6">
-      <div class="container mx-auto">
-        <div class="max-w-6xl mx-auto">
-
-          <!-- Random Insight (top reflection prompt) -->
-          <div class="bg-white rounded-lg shadow p-4 mb-6 border-l-4 border-red-700">
-            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Reflection prompt</p>
-            <p id="random-insight" class="text-lg text-gray-900 leading-snug font-semibold">
-              <!-- JS will insert a sentence here -->
-            </p>
-            <p class="mt-1 text-xs">
-              <a href="insights.html" class="text-red-700 hover:underline font-medium">
-                Read insights →
-              </a>
-            </p>
-          </div>
-
-          <!-- Tag Filters -->
-          <div class="bg-white rounded-lg shadow p-4 mb-8">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-              <div>
-                <h2 class="text-xl font-semibold text-gray-800">Audience Filters</h2>
-                <p class="text-sm text-gray-600">Toggle tags to filter cards based on the intended audience of the resource.</p>
-              </div>
-              <div class="flex flex-wrap gap-2" id="tag-filters"></div>
-            </div>
-          </div>
-
-          <!-- Sections injected here -->
-          <div id="sections-root"></div>
-
-          <footer class="text-center text-gray-500 text-sm mt-10 mb-6">
-            Created by
-            <a href="https://charliegedeon.com" target="_blank" rel="noopener noreferrer"
-               class="text-red-700 hover:text-red-900 underline">Charlie Gedeon</a>.
-            Last updated: <span id="last-updated"></span>
-          </footer>
-
-        </div>
-      </div>
-    </main>
+<!-- Signature element: one tick per institution in the country. -->
+<section class="ribbon" aria-labelledby="ribbon-label">
+  <div class="wrap ribbon__inner">
+    <h2 id="ribbon-label" class="sr-only">Coverage across Canadian institutions</h2>
+    <div class="ribbon__ticks" id="ribbon"></div>
+    <p class="ribbon__read" id="ribbon-read"></p>
   </div>
+</section>
 
-<script>
-/**
- * TAG SYSTEM
- * - Instructor ✅
- * - Student 👨‍🎓
- * - Research 🔬
- * - Generic 🌐
- */
-const TAGS = {
-  instructor: { label: "Instructor ✅", key: "instructor" },
-  student:    { label: "Student 👨‍🎓", key: "student" },
-  research:   { label: "Research 🔬", key: "research" },
-  generic:    { label: "Generic 🌐", key: "generic" },
-};
-
-/**
- * DATASET
- */
-const universities = [
-  // =========================
-  // Alberta
-  // =========================
-  { name: "Athabasca University", province: "Alberta", url: null },
-  { name: "MacEwan University", province: "Alberta", url: "https://www.macewan.ca/about-macewan/teaching/resources/generative-ai/" },
-  { name: "Mount Royal University", province: "Alberta", url: "https://www.mtroyal.ca/AboutMountRoyal/TeachingLearning/AcademicDevelopmentCentre/ClassroomAndCurriculum/artificial-intelligence.htm" },
-  { name: "University of Alberta", province: "Alberta", url: "https://www.ualberta.ca/en/centre-for-teaching-and-learning/resources/generative-ai/index.html" },
-  { name: "University of Calgary", province: "Alberta", url: "https://teaching-learning.ucalgary.ca/resources-educators/generative-ai-teaching-and-learning" },
-  { name: "University of Lethbridge", province: "Alberta", url: "https://www.ulethbridge.ca/teachingcentre/ai-resources" },
-  { name: "Ambrose University", province: "Alberta", url: null },
-  { name: "Burman University", province: "Alberta", url: null },
-  { name: "Northern Alberta Institute of Technology", province: "Alberta", url: null },
-  { name: "Southern Alberta Institute of Technology", province: "Alberta", url: null },
-  { name: "The King’s University", province: "Alberta", url: null },
-  { name: "St. Mary’s University (Calgary)", province: "Alberta", url: null },
-
-  // =========================
-  // British Columbia
-  // =========================
-  { name: "Capilano University", province: "British Columbia", url: "https://cte.capilanou.ca/generative-ai/" },
-  { name: "Emily Carr University of Art + Design", province: "British Columbia", url: "https://www.ecuad.ca/about/leadership-and-governance/policies/ai-guidelines" },
-  { name: "Kwantlen Polytechnic University", province: "British Columbia", url: "https://www.kpu.ca/generative-ai" },
-  { name: "Royal Roads University", province: "British Columbia", url: "https://www.royalroads.ca/about/academics/centre-teaching-educational-technologies/teaching-resources/generative-artificial" },
-  { name: "Simon Fraser University", province: "British Columbia", url: "https://www.sfu.ca/about/leadership-governance-strategy/pan-university-initiatives/ai-at-sfu/our-approach-to-ai.html" },
-  { name: "Thompson Rivers University", province: "British Columbia", url: "https://aieducation.trubox.ca/" },
-  { name: "University of British Columbia", province: "British Columbia", url: "https://genai.ubc.ca/guidance/principles/" },
-  { name: "University of Northern British Columbia", province: "British Columbia", url: "https://www.unbc.ca/provost/guidance-acceptability-using-generative-ai-coursework" },
-  { name: "University of the Fraser Valley", province: "British Columbia", url: "https://www.ufv.ca/teaching-and-learning/artificial-intelligence/" },
-  { name: "University of Victoria", province: "British Columbia", url: "https://libguides.uvic.ca/AI_Tools" },
-  { name: "Vancouver Island University", province: "British Columbia", url: "https://wordpress.viu.ca/ciel/2023/09/01/what-does-ai-mean-in-your-classroom/" },
-  { name: "British Columbia Institute of Technology", province: "British Columbia", url: null },
-  { name: "Nicola Valley Institute of Technology", province: "British Columbia", url: null },
-  { name: "Quest University Canada", province: "British Columbia", url: null },
-  { name: "Trinity Western University", province: "British Columbia", url: null },
-  { name: "University Canada West", province: "British Columbia", url: null },
-
-  // =========================
-  // Manitoba
-  // =========================
-  { name: "Brandon University", province: "Manitoba", url: null },
-  { name: "University of Manitoba", province: "Manitoba", url: "https://umanitoba.ca/centre-advancement-teaching-learning/integrity/artificial-intelligence" },
-  { name: "University of Winnipeg", province: "Manitoba", url: "https://library.uwinnipeg.ca/borrowing-and-services/help-with-research/chatgpt-and-genai.html" },
-  { name: "Université de Saint-Boniface", province: "Manitoba", url: null },
-  { name: "Canadian Mennonite University", province: "Manitoba", url: null },
-
-  // =========================
-  // New Brunswick
-  // =========================
-  { name: "Mount Allison University", province: "New Brunswick", url: "https://libraryguides.mta.ca/genai" },
-  { name: "St. Thomas University", province: "New Brunswick", url: "https://libguides.thomasu.edu/AILiteracy/Home" },
-  { name: "Université de Moncton", province: "New Brunswick", url: "https://www.umoncton.ca/integrite/intelligence_artificielle" },
-  { name: "University of New Brunswick", province: "New Brunswick", url: "https://lib.unb.ca/guides/artificial-intelligence-ai-undergraduate-students" },
-  { name: "Crandall University", province: "New Brunswick", url: null },
-  { name: "Kingswood University", province: "New Brunswick", url: null },
-  { name: "St. Stephen’s University", province: "New Brunswick", url: null },
-  { name: "Yorkville University", province: "New Brunswick", url: null },
-
-  // =========================
-  // Newfoundland and Labrador
-  // =========================
-  { name: "Memorial University of Newfoundland", province: "Newfoundland and Labrador", url: "https://www.mun.ca/citl/explore/generative-ai/" },
-  { name: "College of the North Atlantic", province: "Newfoundland and Labrador", url: null },
-
-  // =========================
-  // Nova Scotia
-  // =========================
-  { name: "Acadia University", province: "Nova Scotia", url: null },
-  { name: "Cape Breton University", province: "Nova Scotia", url: null },
-  { name: "Dalhousie University", province: "Nova Scotia", url: "https://dal.ca.libguides.com/genai/teaching" },
-  { name: "Mount Saint Vincent University", province: "Nova Scotia", url: "https://libguides.msvu.ca/ai/teaching" },
-  { name: "NSCAD University", province: "Nova Scotia", url: "https://library.nscad.ca/AI" },
-  { name: "Saint Mary’s University", province: "Nova Scotia", url: "https://studio.smu.ca/ai-in-teaching-and-learning" },
-  { name: "St. Francis Xavier University", province: "Nova Scotia", url: "https://www.stfx.ca/student-services/academic-services/academic-success-centre/academic-integrity/faculty-syllabus" },
-  { name: "Université Sainte-Anne", province: "Nova Scotia", url: null },
-  { name: "University of King’s College", province: "Nova Scotia", url: null },
-
-  // =========================
-  // Ontario
-  // =========================
-  { name: "Algoma University", province: "Ontario", url: "https://algomau.ca/academics/academic-integrity-office/faculty-resources-on-academic-integrity/guidelines-for-the-responsible-use-of-generative-ai-in-teaching-and-learning/" },
-  { name: "Brock University", province: "Ontario", url: "https://brocku.ca/pedagogical-innovation/resources/guidance-on-chatgpt-and-generative-ai/" },
-  { name: "Carleton University", province: "Ontario", url: "https://carleton.ca/ai/instructors/recommendations-and-guidelines/" },
-  { name: "Lakehead University", province: "Ontario", url: "https://www.lakeheadu.ca/teaching-commons/teaching-and-ai" },
-  { name: "Laurentian University", province: "Ontario", url: null },
-  { name: "McMaster University", province: "Ontario", url: "https://mi.mcmaster.ca/generative-artificial-intelligence-in-teaching-and-learning/" },
-  { name: "Nipissing University", province: "Ontario", url: "https://www.nipissingu.ca/sites/default/files/2023-07/Generative%20AI%20Guide%20for%20Instructors%20-%20July%207%2C%202023.pdf" },
-  { name: "OCAD University", province: "Ontario", url: "https://www.ocadu.ca/sites/default/files/WLC/Generative%20AI%20-%20Teaching%20and%20Learning%20Strategies.pdf" },
-  { name: "Ontario Tech University", province: "Ontario", url: "https://tlc.ontariotechu.ca/nexthub/artificial-intelligence/for-instructors/index.php" },
-  { name: "Queen’s University", province: "Ontario", url: "https://www.queensu.ca/provost/teaching-and-learning/statements-guidelines-and-resources/teaching-and-learning-statements" },
-  { name: "Toronto Metropolitan University", province: "Ontario", url: "https://www.torontomu.ca/centre-for-excellence-in-learning-and-teaching/teaching-resources1/generative-artificial-intelligence/" },
-  { name: "Trent University", province: "Ontario", url: "https://www.trentu.ca/ai-trent/ai-guidance/guidance-faculty" },
-  { name: "University of Guelph", province: "Ontario", url: "https://www.uoguelph.ca/vpacademic/avpa/generative-ai-teaching-and-learning/" },
-  { name: "University of Ottawa", province: "Ontario", url: "https://www.uottawa.ca/faculty-medicine/graduate-postdoctoral/research-writing-guidelines/policy-ai-llm-usage" },
-  { name: "University of Toronto", province: "Ontario", url: "https://teaching.utoronto.ca/teaching-uoft-genai/" },
-  { name: "University of Waterloo", province: "Ontario", url: "https://uwaterloo.ca/generative-ai/ai-use-principles-and-guidelines" },
-  { name: "University of Windsor", province: "Ontario", url: "https://www.uwindsor.ca/ai/303/generative-ai-faculty" },
-  { name: "Western University", province: "Ontario", url: "https://ai.uwo.ca/Guidance/index.html" },
-  { name: "Wilfrid Laurier University", province: "Ontario", url: "https://researchcentres.wlu.ca/teaching-and-learning/building/generative-ai-in-teaching-and-learning.html" },
-  { name: "York University", province: "Ontario", url: "https://www.yorku.ca/teachingandlearning/gen-ai/" },
-  { name: "Redeemer University", province: "Ontario", url: null },
-  { name: "Royal Military College of Canada", province: "Ontario", url: null },
-
-  // =========================
-  // Prince Edward Island
-  // =========================
-  { name: "University of Prince Edward Island", province: "Prince Edward Island", url: "https://sites.google.com/view/instructional-resources/guidance-on-using-generative-ai-in-teaching-and-learning" },
-
-  // =========================
-  // Quebec
-  // =========================
-  { name: "Bishop’s University", province: "Quebec", url: "https://ubishops.libguides.com/AI-Research" },
-  { name: "Concordia University", province: "Quebec", url: "https://www.concordia.ca/ctl/tech-tools/teach-with-technology/guidelines-gen-ai.html" },
-  { name: "McGill University", province: "Quebec", url: "https://teachingkb.mcgill.ca/tlk/using-generative-ai-in-teaching-and-learning" },
-  { name: "Université de Montréal", province: "Quebec", url: "https://esp.umontreal.ca/fileadmin/esp/documents/PDF/Lignes_directrices_Utilisation_IA_Memoire_et_these_Octobre2024.pdf" },
-  { name: "Université de Sherbrooke", province: "Quebec", url: "https://www.usherbrooke.ca/ssf/enseignement/intelligence-artificielle-ia" },
-  { name: "Université du Québec à Montréal", province: "Quebec", url: "https://cpu.umontreal.ca/fileadmin/cpu/documents/enseignement-apprentissage/enseigner-numerique/ia/utiliser-iag/GUI_PIM_Usages-IAg.pdf" },
-  { name: "Université du Québec à Trois-Rivières", province: "Quebec", url: "https://oraprdnt.uqtr.uquebec.ca/portail/gscw031?owa_no_site=7759" },
-  { name: "Université du Québec à Chicoutimi", province: "Quebec", url: "https://www.uqac.ca/ia/boite-a-outils/" },
-  { name: "Université du Québec à Rimouski", province: "Quebec", url: null },
-  { name: "Université du Québec en Outaouais", province: "Quebec", url: null },
-  { name: "Université du Québec en Abitibi-Témiscamingue", province: "Quebec", url: "https://www.uqat.ca/uqat/ia/" },
-  { name: "École de technologie supérieure", province: "Quebec", url: "https://etsmtl.libguides.com/IAgenerative" },
-  { name: "École nationale d’administration publique", province: "Quebec", url: null },
-  { name: "Institut national de la recherche scientifique", province: "Quebec", url: null },
-  { name: "Télé-université (TELUQ)", province: "Quebec", url: null },
-  { name: "HEC Montréal", province: "Quebec", url: null },
-  { name: "École Polytechnique de Montréal", province: "Quebec", url: null },
-  { name: "Université Laval", province: "Quebec", url: "https://www.ulaval.ca/en/information-technology/artificial-intelligence-systems" },
-
-  // =========================
-  // Saskatchewan
-  // =========================
-  { name: "University of Regina", province: "Saskatchewan", url: "https://ctl.uregina.ca/generative-ai-at-the-university-of-regina" },
-  { name: "University of Saskatchewan", province: "Saskatchewan", url: "https://ai.usask.ca/index.php" },
-  { name: "First Nations University of Canada", province: "Saskatchewan", url: null },
-  { name: "Luther College (University of Regina)", province: "Saskatchewan", url: null },
-  { name: "St. Thomas More College", province: "Saskatchewan", url: null },
-];
-
-/**
- * Tagging heuristics
- */
-function inferTags(url) {
-  if (!url) return [];
-  const u = url.toLowerCase();
-  const tags = new Set();
-
-  if (u.includes("libguides") || u.includes("/library") || u.includes("research") || u.includes("graduate-postdoctoral")) {
-    tags.add("research");
-  }
-
-  if (
-    u.includes("teaching") ||
-    u.includes("teaching-learning") ||
-    u.includes("teachingcentre") ||
-    u.includes("centre-for-teaching") ||
-    u.includes("ctl") ||
-    u.includes("tlc") ||
-    u.includes("for-instructors") ||
-    u.includes("instructors") ||
-    u.includes("faculty") ||
-    u.includes("teaching-commons")
-  ) {
-    tags.add("instructor");
-  }
-
-  if (u.includes("integrity") || u.includes("undergraduate") || u.includes("academic-success")) {
-    tags.add("student");
-  }
-
-  if (u.includes("principles") || u.includes("policy") || u.includes("strategy") || u.includes("governance") || u.includes("guidance")) {
-    tags.add("generic");
-  }
-
-  if (u.endsWith(".pdf")) {
-    tags.add("generic");
-    if (u.includes("instructor") || u.includes("teaching")) tags.add("instructor");
-  }
-
-  if (tags.size === 0) tags.add("generic");
-  return Array.from(tags);
-}
-
-/**
- * Manual tag overrides
- */
-const tagOverrides = {
-  "Capilano University": ["instructor"],
-  "University of British Columbia": ["generic"],
-  "Simon Fraser University": ["generic"],
-  "Emily Carr University of Art + Design": ["generic"],
-  "University of Ottawa": ["research", "generic"],
-  "University of Victoria": ["research", "student"],
-  "University of Winnipeg": ["research", "student"],
-  "University of New Brunswick": ["research", "student"],
-  "Mount Allison University": ["research", "student"],
-  "École de technologie supérieure (ÉTS)": ["research", "student"],
-  "Université Laval": ["generic"],
-  "University of Waterloo": ["generic", "instructor"],
-  "Thompson Rivers University": ["instructor", "student"],
-  "Mount Saint Vincent University": ["research", "instructor"],
-  "Dalhousie University": ["research", "instructor"],
-  "Bishop's University": ["research", "student"],
-  "Université de Montréal": ["research", "generic"],
-  "Université du Québec à Montréal (UQAM)": ["generic"],
-};
-
-/**
- * Written-by heuristics + manual overrides
- */
-function inferWrittenBy(url) {
-  if (!url) return null;
-  const u = url.toLowerCase();
-
-  if (u.includes("libguides") || u.includes("/library") || u.includes("library.")) {
-    return "Library";
-  }
-
-  if (
-    u.includes("centre-for-teaching") ||
-    u.includes("teaching-learning") ||
-    u.includes("teachingcentre") ||
-    u.includes("teaching-centre") ||
-    u.includes("teaching-commons") ||
-    u.includes("/ctl") ||
-    u.includes("ctl.") ||
-    u.includes("/citl") ||
-    u.includes("citl.") ||
-    u.includes("/tlc") ||
-    u.includes("tlc.") ||
-    u.includes("centre-for-excellence-in-learning-and-teaching") ||
-    u.includes("pedagogical-innovation")
-  ) {
-    return "Teaching & Learning Unit";
-  }
-
-  if (u.includes("provost") || u.includes("vpacademic") || u.includes("vp-academic")) {
-    return "Office of the Provost / Academic Leadership";
-  }
-
-  if (u.includes("integrity") || u.includes("academic-success") || u.includes("academic-integrity")) {
-    return "Academic Integrity / Student Success";
-  }
-
-  if (u.includes("faculty-") || u.includes("/faculty/") || u.includes("faculty-medicine")) {
-    return "Faculty / School";
-  }
-
-  if (u.includes("information-technology") || (u.includes("it") && u.includes("artificial-intelligence"))) {
-    return "Information Technology";
-  }
-
-  return "University-wide / General";
-}
-
-const writtenByOverrides = {
-  // Alberta
-  "MacEwan University": "Centre for Teaching & Learning",
-  "Mount Royal University": "Academic Development Centre",
-  "University of Alberta": "Centre for Teaching & Learning",
-  "University of Calgary": "Teaching & Learning Unit",
-  "University of Lethbridge": "Teaching Centre",
-
-  // British Columbia
-  "Capilano University": "Centre for Teaching Excellence",
-  "Royal Roads University": "Centre for Teaching & Educational Technologies",
-  "University of Northern British Columbia": "Office of the Provost",
-  "University of Victoria": "Library",
-  "Simon Fraser University": "University-wide / Strategy",
-  "University of British Columbia": "University-wide / Principles",
-
-  // Manitoba
-  "University of Manitoba": "Academic Integrity / Teaching & Learning Unit",
-  "University of Winnipeg": "Library",
-
-  // New Brunswick
-  "Mount Allison University": "Library",
-  "St. Thomas University": "Library",
-  "Université de Moncton": "Academic Integrity",
-  "University of New Brunswick": "Library",
-
-  // Newfoundland and Labrador
-  "Memorial University of Newfoundland": "Centre for Innovation in Teaching & Learning (CITL)",
-
-  // Nova Scotia
-  "Dalhousie University": "Centre for Learning & Teaching",
-  "Mount Saint Vincent University": "Library",
-  "NSCAD University": "Library",
-
-  // Ontario
-  "Brock University": "Centre for Pedagogical Innovation",
-  "Carleton University": "University-wide / Teaching Support",
-  "McMaster University": "MacPherson Institute",
-  "Ontario Tech University": "Teaching & Learning Centre",
-  "Toronto Metropolitan University (formerly Ryerson)": "Centre for Excellence in Learning & Teaching",
-  "University of Toronto": "Centre for Teaching Support & Innovation (CTSI)",
-  "University of Ottawa": "Faculty of Medicine (Graduate Studies)",
-  "Queen's University": "Office of the Provost",
-  "University of Guelph": "Office of the Vice-Provost (Academic)",
-  "Wilfrid Laurier University": "Teaching & Learning Unit",
-  "York University": "Teaching & Learning Unit",
-
-  // Quebec
-  "Concordia University": "Centre for Teaching & Learning",
-  "McGill University": "Teaching & Learning Knowledge Base",
-  "Université de Montréal": "Graduate Studies (Policy / Guidelines)",
-  "École de technologie supérieure (ÉTS)": "Library",
-  "Université Laval": "Information Technology",
-
-  // Saskatchewan
-  "University of Regina": "Centre for Teaching & Learning",
-  "University of Saskatchewan": "University-wide / Role-based Guidance",
-};
-
-/**
- * Build records
- */
-const data = universities.map(u => {
-  const inferredTags = inferTags(u.url);
-  const overriddenTags = tagOverrides[u.name] || null;
-
-  const inferredWrittenBy = inferWrittenBy(u.url);
-  const overriddenWrittenBy = writtenByOverrides[u.name] || null;
-
-  return {
-    ...u,
-    tags: overriddenTags ? overriddenTags : inferredTags,
-    writtenBy: overriddenWrittenBy ? overriddenWrittenBy : inferredWrittenBy,
-  };
-});
-
-/**
- * UI STATE
- */
-let activeTagKeys = new Set(); // AND logic: must contain ALL selected tags; empty => show all
-
-function slugifyProvince(prov) {
-  return prov.toLowerCase().replace(/\s+/g, "-").replace(/[’']/g, "");
-}
-
-function tagPill(tagKey) {
-  const label = TAGS[tagKey]?.label || tagKey;
-  return `
-    <span class="tag-pill inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-50 text-gray-700">
-      ${label}
-    </span>
-  `;
-}
-
-function pdfBadge(url) {
-  if (!url) return "";
-  const isPdf = url.toLowerCase().endsWith(".pdf");
-  if (!isPdf) return "";
-  return `
-    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-50 text-yellow-800 border border-yellow-200">
-      PDF
-    </span>
-  `;
-}
-
-function cardTemplate(u) {
-  const hasLink = !!u.url;
-  const tagsHtml = (u.tags || []).map(tagPill).join("");
-  const badge = pdfBadge(u.url);
-
-  const writtenBy = u.writtenBy
-    ? `<p class="text-sm text-gray-600 mb-3"><span class="font-semibold">Written by:</span> ${u.writtenBy}</p>`
-    : "";
-
-  const button = hasLink
-    ? `<a href="${u.url}" target="_blank" rel="noopener noreferrer"
-         class="inline-block bg-red-700 text-white px-5 py-2.5 rounded-lg hover:bg-red-900 transition-colors duration-200">
-         Visit Resource
-       </a>`
-    : `<button disabled
-         class="inline-block bg-gray-500 text-white px-5 py-2.5 rounded-lg opacity-60 cursor-not-allowed">
-         No Link
-       </button>`;
-
-  return `
-    <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
-      <div class="flex items-start justify-between gap-3 mb-2">
-        <h3 class="text-xl font-semibold text-gray-800">${u.name}</h3>
-        ${badge}
+<div class="rail">
+  <div class="wrap rail__inner">
+    <div class="rail__row">
+      <div class="search">
+        <span class="search__icon" id="search-icon"></span>
+        <label class="sr-only" for="q">Search institutions and documents</label>
+        <input id="q" type="search" autocomplete="off" spellcheck="false"
+               placeholder="Search a university, a city, a document type…">
+        <button class="search__clear" id="q-clear" type="button" aria-label="Clear search" hidden></button>
       </div>
-
-      ${writtenBy}
-      <div class="flex flex-wrap gap-2 align-middle mb-4"><span class="text-sm text-gray-600 font-semibold">Audience:</span>${tagsHtml}</div>
-      
-      <div class="mt-auto">
-        ${button}
-      </div>
+      <button class="filters-toggle" id="filters-toggle" type="button" aria-expanded="false" aria-controls="filters">
+        <span id="filters-icon"></span> Filters <span class="badge" id="filters-count" hidden>0</span>
+      </button>
     </div>
-  `;
+
+    <div class="rail__row rail__collapsible" id="filters">
+      <label class="sr-only" for="f-province">Province</label>
+      <select class="sel" id="f-province"><option value="">All provinces</option></select>
+
+      <label class="sr-only" for="f-issuer">Issued by</label>
+      <select class="sel" id="f-issuer"><option value="">Any issuing office</option></select>
+
+      <label class="sr-only" for="f-type">Document type</label>
+      <select class="sel" id="f-type"><option value="">Any document type</option></select>
+
+      <label class="sr-only" for="f-status">Coverage</label>
+      <select class="sel" id="f-status">
+        <option value="">Everyone</option>
+        <option value="has">Has published guidance</option>
+        <option value="none">Nothing published yet</option>
+      </select>
+
+      <div class="chips" id="f-audience" role="group" aria-label="Audience"></div>
+    </div>
+
+    <div class="rail__meta">
+      <span class="rail__count" id="count"></span>
+      <button class="linkbtn" id="expand-all" type="button">Expand all</button>
+      <button class="linkbtn" id="reset" type="button" hidden>Clear filters</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <div id="prompt-slot"></div>
+    <div id="results"></div>
+  </div>
+</main>
+
+<footer data-chrome="footer"></footer>
+
+<!-- Compare tray -->
+<div class="cmpbar" id="cmpbar" data-show="0">
+  <span id="cmpbar-text">2 selected</span>
+  <button class="go" id="cmpbar-go" type="button">Compare</button>
+  <button class="clr" id="cmpbar-clear" type="button">Clear</button>
+</div>
+
+<div class="sheet" id="cmp-sheet" role="dialog" aria-modal="true" aria-labelledby="cmp-title" data-show="0">
+  <div class="sheet__panel">
+    <div class="sheet__head">
+      <h3 id="cmp-title">Side by side</h3>
+      <button class="iconbtn" id="cmp-close" type="button" aria-label="Close comparison"></button>
+    </div>
+    <div class="sheet__body" id="cmp-body"></div>
+  </div>
+</div>
+
+<script src="assets/data-snapshot.js"></script>
+<script src="assets/site.js"></script>
+<script>
+/* ==================================================================
+   Directory page
+   ================================================================== */
+renderChrome("directory");
+
+document.getElementById("search-icon").innerHTML  = ICON.search;
+document.getElementById("q-clear").innerHTML      = ICON.x;
+document.getElementById("filters-icon").innerHTML = ICON.sliders;
+document.getElementById("cmp-close").innerHTML    = ICON.x;
+
+const AUDIENCES = ["Instructors", "Students", "Researchers", "Everyone"];
+
+let MODEL   = { list: [], byId: {} };
+let PROMPTS = [];
+const state = { q: "", province: "", issuer: "", type: "", status: "", audience: new Set() };
+const open  = new Set();   // expanded institution ids
+const picked = new Set();  // compare selection
+
+/* ------------------------------------------------------------------
+   Join the two tabs into one institution-centred model
+   ------------------------------------------------------------------ */
+function buildModel(data) {
+  const docsByInst = new Map();
+  (data.resources || []).filter(r => yes(r.Publish)).forEach(r => {
+    const key = fold(r.Institution);
+    if (!key) return;
+    if (!docsByInst.has(key)) docsByInst.set(key, []);
+    docsByInst.get(key).push({
+      title:    r["Resource Title"] || "",
+      url:      r.URL || "",
+      type:     r["Document Type"] || "",
+      issuer:   r["Issued By"] || "",
+      unit:     r["Issuing Unit (verbatim)"] || "",
+      audience: multi(r.Audience),
+      scope:    r.Scope || "",
+      stance:   r.Stance || "",
+      format:   r.Format || "",
+      language: r.Language || "",
+      summary:  r.Summary || "",
+      updated:  r["Last Reviewed"] || r["Date Published"] || "",
+    });
+  });
+
+  const list = (data.institutions || [])
+    .filter(i => yes(i.Publish) && i.Institution)
+    .map(i => {
+      const docs = docsByInst.get(fold(i.Institution)) || [];
+      return {
+        id: slug(i.Institution),
+        name: i.Institution,
+        province: i.Province || "",
+        city: i.City || "",
+        kind: i["Institution Type"] || "",
+        language: i["Language of Instruction"] || "",
+        note: i["Institution Notes"] || "",
+        docs,
+        audiences: [...new Set(docs.flatMap(d => d.audience))],
+        issuers:   [...new Set(docs.map(d => d.issuer).filter(Boolean))],
+        types:     [...new Set(docs.map(d => d.type).filter(Boolean))],
+        // one lowercase blob so search is a single fast substring test
+        hay: fold([
+          i.Institution, i.Province, i.City, i["Institution Type"],
+          ...docs.map(d => [d.title, d.type, d.issuer, d.unit, d.summary,
+                            d.audience.join(" "), d.url].join(" ")),
+        ].join(" ")),
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name, "en"));
+
+  return { list, byId: Object.fromEntries(list.map(i => [i.id, i])) };
 }
 
-/**
- * AND logic filter:
- * - If user selected tags: the card must include ALL selected tags
- */
-function matchesActiveTags_AND(u) {
-  if (activeTagKeys.size === 0) return true;
-  const ut = new Set(u.tags || []);
-  for (const t of activeTagKeys) {
-    if (!ut.has(t)) return false;
-  }
+/* ------------------------------------------------------------------
+   Filtering
+   ------------------------------------------------------------------ */
+function passes(inst) {
+  if (state.q && !inst.hay.includes(fold(state.q))) return false;
+  if (state.province && inst.province !== state.province) return false;
+  if (state.status === "has"  && !inst.docs.length) return false;
+  if (state.status === "none" &&  inst.docs.length) return false;
+  if (state.issuer && !inst.issuers.includes(state.issuer)) return false;
+  if (state.type   && !inst.types.includes(state.type))     return false;
+  for (const a of state.audience) if (!inst.audiences.includes(a)) return false;
   return true;
 }
 
-/**
- * Render functions
- */
-function renderNav(provinces) {
-  const nav = document.getElementById("province-nav");
-  provinces.forEach(p => {
-    const id = slugifyProvince(p);
-    const li = document.createElement("li");
-    li.innerHTML = `<a href="#${id}" class="block py-2 px-4 rounded hover:bg-gray-700">${p}</a>`;
-    nav.appendChild(li);
-  });
+const activeCount = () =>
+  (state.province ? 1 : 0) + (state.issuer ? 1 : 0) + (state.type ? 1 : 0) +
+  (state.status ? 1 : 0) + state.audience.size;
+
+/* ------------------------------------------------------------------
+   Rendering
+   ------------------------------------------------------------------ */
+function docHtml(d) {
+  const badges = [
+    d.type   && `<span class="tag">${esc(d.type)}</span>`,
+    d.scope  && `<span class="tag tag--n">${esc(d.scope)}</span>`,
+    d.stance && `<span class="tag tag--n">${esc(d.stance)}</span>`,
+    d.format === "PDF" && `<span class="tag tag--pdf">PDF</span>`,
+    d.language && d.language !== "English" && `<span class="tag tag--n">${esc(d.language)}</span>`,
+    ...d.audience.map(a => `<span class="tag tag--n">${esc(a)}</span>`),
+  ].filter(Boolean).join("");
+
+  const title = d.title
+    ? esc(d.title)
+    : `<span class="doc__untitled">${esc(d.type || "Untitled resource")}</span>`;
+
+  return `
+    <div class="doc">
+      <div class="doc__title">${title}</div>
+      ${badges ? `<div class="doc__meta">${badges}</div>` : ""}
+      ${d.summary ? `<p class="doc__summary">${esc(d.summary)}</p>` : ""}
+      ${d.unit ? `<p class="doc__unit">Published by ${esc(d.unit)}${
+        d.updated ? ` · reviewed ${esc(d.updated)}` : ""}</p>` : ""}
+      ${d.url ? `<a class="doc__go" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">
+        Open the document ${ICON.ext}</a>` : ""}
+    </div>`;
 }
 
-function renderTagFilters() {
-  const root = document.getElementById("tag-filters");
-  root.innerHTML = "";
+function cardHtml(inst) {
+  const where = [inst.province, inst.city && inst.city.replace(/,\s*\w+$/, ""), inst.kind]
+    .filter(Boolean).join(" · ");
+  const isOpen = open.has(inst.id);
+  const n = inst.docs.length;
 
-  Object.values(TAGS).forEach(t => {
-    const btn = document.createElement("button");
-    btn.className = "px-3 py-2 rounded-lg border text-sm font-medium bg-white hover:bg-gray-50 transition";
-    btn.dataset.tag = t.key;
-    btn.innerText = t.label;
+  if (!n) {
+    return `
+      <article class="card card--empty" id="${inst.id}">
+        <input class="cmp" type="checkbox" data-cmp="${inst.id}"
+               ${picked.has(inst.id) ? "checked" : ""}
+               aria-label="Add ${esc(inst.name)} to the comparison">
+        <div class="card__top" style="cursor:default">
+          <span>
+            <span class="card__name">${esc(inst.name)}</span>
+            <span class="card__where">${esc(where)}</span>
+          </span>
+        </div>
+        <div class="card__tags"><span class="tag tag--none">Nothing published yet</span></div>
+        <p class="nodocs">No public generative-AI guidance found.
+          <a href="${SITE.contact}" target="_blank" rel="noopener noreferrer">Know of one?</a></p>
+      </article>`;
+  }
 
-    btn.addEventListener("click", () => {
-      const key = t.key;
-      if (activeTagKeys.has(key)) activeTagKeys.delete(key);
-      else activeTagKeys.add(key);
-      updateFilterButtonStyles();
-      renderSections();
-    });
+  const summary = [
+    `<span class="tag tag--n">${plural(n, "document", "documents")}</span>`,
+    ...inst.types.slice(0, 2).map(t => `<span class="tag">${esc(t)}</span>`),
+    ...inst.audiences.slice(0, 3).map(a => `<span class="tag tag--n">${esc(a)}</span>`),
+  ].join("");
 
-    root.appendChild(btn);
-  });
-
-  const clear = document.createElement("button");
-  clear.className = "px-3 py-2 rounded-lg border text-sm font-medium bg-gray-800 text-white hover:bg-gray-700 transition";
-  clear.innerText = "Clear";
-  clear.addEventListener("click", () => {
-    activeTagKeys.clear();
-    updateFilterButtonStyles();
-    renderSections();
-  });
-  root.appendChild(clear);
-
-  updateFilterButtonStyles();
+  return `
+    <article class="card" id="${inst.id}" data-open="${isOpen ? 1 : 0}">
+      <input class="cmp" type="checkbox" data-cmp="${inst.id}"
+             ${picked.has(inst.id) ? "checked" : ""}
+             aria-label="Add ${esc(inst.name)} to the comparison">
+      <button class="card__top" data-toggle="${inst.id}"
+              aria-expanded="${isOpen}" aria-controls="docs-${inst.id}">
+        <span>
+          <span class="card__name">${esc(inst.name)}</span>
+          <span class="card__where">${esc(where)}</span>
+        </span>
+        <span class="card__caret">${ICON.chevron}</span>
+      </button>
+      <div class="card__tags">${summary}</div>
+      <div class="docs" id="docs-${inst.id}" ${isOpen ? "" : "hidden"}>
+        ${inst.docs.map(docHtml).join("")}
+      </div>
+    </article>`;
 }
 
-function updateFilterButtonStyles() {
-  document.querySelectorAll("#tag-filters button[data-tag]").forEach(btn => {
-    const key = btn.dataset.tag;
-    if (activeTagKeys.has(key)) {
-      btn.className = "px-3 py-2 rounded-lg border text-sm font-medium bg-red-600 text-white hover:bg-red-800 transition";
-    } else {
-      btn.className = "px-3 py-2 rounded-lg border text-sm font-medium bg-white hover:bg-gray-50 transition";
+function render() {
+  const hits = MODEL.list.filter(passes);
+  const root = document.getElementById("results");
+
+  document.getElementById("count").textContent =
+    hits.length === MODEL.list.length
+      ? `${MODEL.list.length} institutions · ${MODEL.list.reduce((s, i) => s + i.docs.length, 0)} documents`
+      : `${plural(hits.length, "institution", "institutions")} · ${
+          hits.reduce((s, i) => s + i.docs.length, 0)} documents`;
+
+  const n = activeCount();
+  const badge = document.getElementById("filters-count");
+  badge.hidden = !n; badge.textContent = n;
+  document.getElementById("reset").hidden = !n && !state.q;
+  document.getElementById("q-clear").hidden = !state.q;
+  [["f-province", state.province], ["f-issuer", state.issuer],
+   ["f-type", state.type], ["f-status", state.status]]
+    .forEach(([id, v]) => document.getElementById(id).dataset.active = v ? "1" : "0");
+
+  if (!hits.length) {
+    root.innerHTML = `
+      <div class="empty">
+        <h3>Nothing matches those filters</h3>
+        <p>Try a broader search, or clear the filters to see all ${MODEL.list.length} institutions.</p>
+        <button class="chip" id="empty-reset" type="button">Clear filters</button>
+      </div>`;
+    document.getElementById("empty-reset").onclick = resetAll;
+    syncUrl();
+    return;
+  }
+
+  const groups = new Map();
+  hits.forEach(i => {
+    if (!groups.has(i.province)) groups.set(i.province, []);
+    groups.get(i.province).push(i);
+  });
+
+  root.innerHTML = [...groups.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0], "en"))
+    .map(([province, items]) => {
+      const docs = items.reduce((s, i) => s + i.docs.length, 0);
+      return `
+        <div class="province-head">
+          <h2>${esc(province)}</h2>
+          <span>${plural(items.length, "institution", "institutions")} · ${
+            plural(docs, "document", "documents")}</span>
+        </div>
+        <div class="grid">${items.map(cardHtml).join("")}</div>`;
+    }).join("");
+
+  document.getElementById("expand-all").textContent =
+    hits.every(i => !i.docs.length || open.has(i.id)) ? "Collapse all" : "Expand all";
+
+  syncUrl();
+}
+
+/* ------------------------------------------------------------------
+   Coverage ribbon
+   ------------------------------------------------------------------ */
+function renderRibbon() {
+  const withDocs = MODEL.list.filter(i => i.docs.length).length;
+  const total = MODEL.list.length;
+
+  document.getElementById("ribbon").innerHTML = MODEL.list.map(i =>
+    `<button class="tick${i.docs.length ? " tick--has" : ""}" data-tick="${i.id}"
+       title="${esc(i.name)}" aria-label="${esc(i.name)}: ${
+         i.docs.length ? plural(i.docs.length, "document", "documents") : "nothing published"}"></button>`
+  ).join("");
+
+  setReadout(`<b>${withDocs} of ${total}</b> institutions have published generative-AI guidance. Each tick is one institution.`);
+}
+
+const setReadout = html => { document.getElementById("ribbon-read").innerHTML = html; };
+
+/* ------------------------------------------------------------------
+   Compare
+   ------------------------------------------------------------------ */
+const CMP_MAX = 4;
+
+function refreshCmpBar() {
+  const bar = document.getElementById("cmpbar");
+  bar.dataset.show = picked.size ? "1" : "0";
+  document.getElementById("cmpbar-text").textContent =
+    `${plural(picked.size, "institution", "institutions")} selected`;
+  document.getElementById("cmpbar-go").disabled = picked.size < 2;
+}
+
+function openCompare() {
+  const chosen = [...picked].map(id => MODEL.byId[id]).filter(Boolean);
+  const cell = v => (v && v.length) ? v : '<span class="dash">—</span>';
+  const list = a => a.length ? `<ul>${a.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
+
+  const rows = [
+    ["Province",     i => esc(i.province)],
+    ["City",         i => esc(i.city)],
+    ["Type",         i => esc(i.kind)],
+    ["Language",     i => esc(i.language)],
+    ["Documents",    i => i.docs.length ? String(i.docs.length) : ""],
+    ["Document types", i => list(i.types)],
+    ["Issued by",    i => list(i.issuers)],
+    ["Audience",     i => list(i.audiences)],
+    ["Stance",       i => list([...new Set(i.docs.map(d => d.stance).filter(Boolean))])],
+    ["Links",        i => i.docs.filter(d => d.url).map(d =>
+        `<div style="margin-bottom:5px"><a href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">${
+          esc(d.title || d.type || "Open")}</a></div>`).join("")],
+  ];
+
+  document.getElementById("cmp-body").innerHTML = `
+    <table class="cmp-table">
+      <thead><tr><th scope="col"><span class="sr-only">Attribute</span></th>
+        ${chosen.map(i => `<th scope="col">${esc(i.name)}</th>`).join("")}</tr></thead>
+      <tbody>
+        ${rows.map(([label, fn]) => `<tr>
+          <th scope="row">${label}</th>
+          ${chosen.map(i => `<td>${cell(fn(i))}</td>`).join("")}
+        </tr>`).join("")}
+      </tbody>
+    </table>`;
+
+  const sheet = document.getElementById("cmp-sheet");
+  sheet.dataset.show = "1";
+  document.getElementById("cmp-close").focus();
+}
+
+const closeCompare = () => { document.getElementById("cmp-sheet").dataset.show = "0"; };
+
+/* ------------------------------------------------------------------
+   URL state — every view is a shareable link
+   ------------------------------------------------------------------ */
+function syncUrl() {
+  const p = new URLSearchParams();
+  if (state.q) p.set("q", state.q);
+  if (state.province) p.set("province", state.province);
+  if (state.issuer) p.set("issuer", state.issuer);
+  if (state.type) p.set("type", state.type);
+  if (state.status) p.set("status", state.status);
+  if (state.audience.size) p.set("audience", [...state.audience].join(","));
+  const qs = p.toString();
+  history.replaceState(null, "", qs ? "?" + qs + location.hash : location.pathname + location.hash);
+}
+
+function readUrl() {
+  const p = new URLSearchParams(location.search);
+  state.q        = p.get("q") || "";
+  state.province = p.get("province") || "";
+  state.issuer   = p.get("issuer") || "";
+  state.type     = p.get("type") || "";
+  state.status   = p.get("status") || "";
+  (p.get("audience") || "").split(",").filter(Boolean).forEach(a => state.audience.add(a));
+}
+
+function resetAll() {
+  state.q = state.province = state.issuer = state.type = state.status = "";
+  state.audience.clear();
+  document.getElementById("q").value = "";
+  ["f-province", "f-issuer", "f-type", "f-status"].forEach(id => document.getElementById(id).value = "");
+  document.querySelectorAll("#f-audience .chip").forEach(c => c.setAttribute("aria-pressed", "false"));
+  render();
+}
+
+/* ------------------------------------------------------------------
+   Wiring
+   ------------------------------------------------------------------ */
+function fillSelect(id, values, current) {
+  const sel = document.getElementById(id);
+  const first = sel.options[0];
+  sel.innerHTML = "";
+  sel.appendChild(first);
+  values.forEach(v => {
+    const o = document.createElement("option");
+    o.value = o.textContent = v;
+    sel.appendChild(o);
+  });
+  if (current) sel.value = current;
+}
+
+function buildControls() {
+  fillSelect("f-province",
+    [...new Set(MODEL.list.map(i => i.province))].filter(Boolean).sort(), state.province);
+  fillSelect("f-issuer",
+    [...new Set(MODEL.list.flatMap(i => i.issuers))].sort(), state.issuer);
+  fillSelect("f-type",
+    [...new Set(MODEL.list.flatMap(i => i.types))].sort(), state.type);
+  document.getElementById("f-status").value = state.status;
+
+  const present = new Set(MODEL.list.flatMap(i => i.audiences));
+  document.getElementById("f-audience").innerHTML = AUDIENCES
+    .filter(a => present.has(a))
+    .map(a => `<button class="chip" type="button" data-aud="${a}"
+                 aria-pressed="${state.audience.has(a)}">${a}</button>`).join("");
+}
+
+let typingTimer;
+document.getElementById("q").addEventListener("input", e => {
+  clearTimeout(typingTimer);
+  const v = e.target.value;
+  typingTimer = setTimeout(() => { state.q = v; render(); }, 110);
+});
+document.getElementById("q-clear").onclick = () => {
+  document.getElementById("q").value = ""; state.q = ""; render();
+  document.getElementById("q").focus();
+};
+
+["province", "issuer", "type", "status"].forEach(key => {
+  document.getElementById("f-" + key).addEventListener("change", e => {
+    state[key] = e.target.value; render();
+  });
+});
+
+document.getElementById("f-audience").addEventListener("click", e => {
+  const btn = e.target.closest("[data-aud]");
+  if (!btn) return;
+  const a = btn.dataset.aud;
+  state.audience.has(a) ? state.audience.delete(a) : state.audience.add(a);
+  btn.setAttribute("aria-pressed", state.audience.has(a));
+  render();
+});
+
+document.getElementById("reset").onclick = resetAll;
+
+document.getElementById("filters-toggle").onclick = e => {
+  const btn = e.currentTarget;
+  const on = btn.getAttribute("aria-expanded") === "true";
+  btn.setAttribute("aria-expanded", String(!on));
+  document.getElementById("filters").dataset.open = on ? "0" : "1";
+};
+
+document.getElementById("expand-all").onclick = () => {
+  const hits = MODEL.list.filter(passes).filter(i => i.docs.length);
+  const allOpen = hits.every(i => open.has(i.id));
+  hits.forEach(i => allOpen ? open.delete(i.id) : open.add(i.id));
+  render();
+};
+
+/* Card expansion + compare checkboxes, delegated so re-renders are cheap */
+document.getElementById("results").addEventListener("click", e => {
+  const toggle = e.target.closest("[data-toggle]");
+  if (toggle) {
+    const id = toggle.dataset.toggle;
+    open.has(id) ? open.delete(id) : open.add(id);
+    const card = document.getElementById(id);
+    const docs = document.getElementById("docs-" + id);
+    const isOpen = open.has(id);
+    card.dataset.open = isOpen ? "1" : "0";
+    docs.hidden = !isOpen;
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    return;
+  }
+});
+
+document.getElementById("results").addEventListener("change", e => {
+  const box = e.target.closest("[data-cmp]");
+  if (!box) return;
+  const id = box.dataset.cmp;
+  if (box.checked) {
+    if (picked.size >= CMP_MAX) {
+      box.checked = false;
+      setReadout(`You can compare up to ${CMP_MAX} institutions at once.`);
+      return;
     }
-  });
+    picked.add(id);
+  } else picked.delete(id);
+  refreshCmpBar();
+});
+
+document.getElementById("cmpbar-go").onclick = openCompare;
+document.getElementById("cmpbar-clear").onclick = () => {
+  picked.clear();
+  document.querySelectorAll("[data-cmp]").forEach(b => b.checked = false);
+  refreshCmpBar();
+};
+document.getElementById("cmp-close").onclick = closeCompare;
+document.getElementById("cmp-sheet").addEventListener("click", e => {
+  if (e.target.id === "cmp-sheet") closeCompare();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeCompare();
+  // "/" focuses search, the way every good directory should
+  if (e.key === "/" && !/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName)) {
+    e.preventDefault();
+    document.getElementById("q").focus();
+  }
+});
+
+/* Ribbon interactions */
+const ribbon = document.getElementById("ribbon");
+ribbon.addEventListener("mouseover", e => {
+  const t = e.target.closest("[data-tick]");
+  if (!t) return;
+  const inst = MODEL.byId[t.dataset.tick];
+  setReadout(`<b>${esc(inst.name)}</b> — ${
+    inst.docs.length ? plural(inst.docs.length, "document", "documents") : "nothing published yet"}`);
+});
+ribbon.addEventListener("mouseleave", () => {
+  const withDocs = MODEL.list.filter(i => i.docs.length).length;
+  setReadout(`<b>${withDocs} of ${MODEL.list.length}</b> institutions have published generative-AI guidance. Each tick is one institution.`);
+});
+ribbon.addEventListener("click", e => {
+  const t = e.target.closest("[data-tick]");
+  if (!t) return;
+  const inst = MODEL.byId[t.dataset.tick];
+  resetAll();
+  open.add(inst.id);
+  render();
+  const card = document.getElementById(inst.id);
+  card.scrollIntoView({ behavior: "smooth", block: "center" });
+  card.classList.add("card--target");
+  setTimeout(() => card.classList.remove("card--target"), 2200);
+});
+
+/* ------------------------------------------------------------------
+   Reflection prompt
+   ------------------------------------------------------------------ */
+function renderPrompt() {
+  const slot = document.getElementById("prompt-slot");
+  if (!PROMPTS.length) { slot.innerHTML = ""; return; }
+  const pick = PROMPTS[Math.floor(Math.random() * PROMPTS.length)];
+  slot.innerHTML = `
+    <div class="prompt">
+      <p class="prompt__label">Something to notice</p>
+      <p class="prompt__text">${pick}</p>
+      <p class="prompt__foot">
+        <a href="insights.html">Read the insights →</a>
+        <button class="linkbtn" id="prompt-next" type="button">Show another</button>
+      </p>
+    </div>`;
+  document.getElementById("prompt-next").onclick = renderPrompt;
 }
 
-function renderSections() {
-  const root = document.getElementById("sections-root");
-  root.innerHTML = "";
+/* ------------------------------------------------------------------
+   Boot
+   ------------------------------------------------------------------ */
+readUrl();
+document.getElementById("q").value = state.q;
 
-  const grouped = {};
-  data.forEach(u => {
-    if (!grouped[u.province]) grouped[u.province] = [];
-    grouped[u.province].push(u);
-  });
+loadData(data => {
+  MODEL = buildModel(data);
+  PROMPTS = (data.prompts || []).filter(p => yes(p.Publish)).map(p => p.Prompt).filter(Boolean);
 
-  const provinces = Object.keys(grouped).sort((a,b) => a.localeCompare(b));
+  buildControls();
+  renderRibbon();
+  renderPrompt();
+  render();
 
-  provinces.forEach(prov => {
-    const id = slugifyProvince(prov);
-    const items = grouped[prov]
-      .slice()
-      .sort((a,b) => a.name.localeCompare(b.name))
-      .filter(matchesActiveTags_AND);
-
-    const section = document.createElement("section");
-    section.id = id;
-    section.className = "mb-10";
-
-    section.innerHTML = `
-      <h2 class="text-4xl font-extrabold text-red-700 mb-6 border-b-2 border-red-300 pb-2">${prov}</h2>
-      ${
-        items.length === 0
-          ? `<div class="bg-white rounded-lg shadow p-6 text-gray-700">No results for the selected tags in ${prov}.</div>`
-          : `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-               ${items.map(cardTemplate).join("")}
-             </div>`
-      }
-    `;
-
-    root.appendChild(section);
-  });
-}
-
-/**
- * Random Insight (pre-generated sentences)
- * - Randomly selects one insight on each page refresh
- */
-const REFLECTION_INSIGHTS = [
-  "At <strong>University of Toronto</strong>, generative AI guidance lives with teaching and learning centres, at <strong>University of Waterloo</strong>, it is framed first through academic integrity, same technology, very different signals to instructors.",
-  "<strong>UBC</strong> and <strong>McGill</strong> both publish GenAI guidance, only <strong>UBC</strong> consistently frames it as an assessment design issue, while <strong>McGill</strong> foregrounds academic responsibility and risk.",
-  "Several universities call their AI documents guidance or principles, <strong>Queen’s University</strong> is one of the few that explicitly labels parts of its approach as policy, a small word choice with large implications.",
-  "At <strong>University of Alberta</strong>, AI guidance emphasizes instructional flexibility, at <strong>University of Calgary</strong>, the same topic appears more tightly coupled to misconduct prevention.",
-  "<strong>Western University</strong> publishes GenAI guidance through teaching and learning units, <strong>York University</strong> routes much of its AI messaging through broader academic integrity frameworks.",
-  "Libraries author AI guidance at <strong>Dalhousie University</strong> and <strong>Memorial University</strong>, positioning AI first as a research literacy challenge rather than a teaching problem.",
-  "At <strong>Simon Fraser University</strong>, AI guidance appears across multiple decentralized pages, at <strong>University of Victoria</strong>, it is consolidated into a single library-led resource.",
-  "<strong>McMaster University</strong> frames generative AI as something instructors design around, <strong>Toronto Metropolitan University</strong> emphasizes clarity and disclosure expectations in course materials.",
-  "Some institutions publish AI guidance without mentioning detection at all, <strong>University of British Columbia</strong> discusses it cautiously, <strong>University of Ottawa</strong> largely avoids it.",
-  "At <strong>University of Regina</strong>, AI guidance appears primarily in student-facing materials, instructors are left to infer expectations rather than being addressed directly.",
-  "<strong>Concordia University</strong> and <strong>Université de Montréal</strong> both publish GenAI resources, but only one consistently situates AI within broader conversations about digital pedagogy.",
-  "Environmental impact is mentioned in AI guidance at only a handful of institutions, <strong>UBC</strong> acknowledges it briefly, most others omit it entirely.",
-  "At <strong>University of Guelph</strong>, AI guidance is framed as evolving and contextual, at <strong>Brock University</strong>, updates appear more episodic and reactive.",
-  "Several universities describe their AI documents as living, <strong>University of Toronto</strong> updates regularly, others have not revised guidance since early 2023.",
-  "When AI guidance is written by libraries at <strong>Mount Allison University</strong> and <strong>University of Winnipeg</strong>, citation and attribution dominate the conversation.",
-  "<strong>Carleton University</strong> emphasizes transparency and disclosure in AI use, <strong>University of Saskatchewan</strong> focuses more heavily on instructor judgment.",
-  "Across institutions, the same advice appears repeatedly, clarify expectations, design assessments thoughtfully, yet the authority behind that advice varies widely by university.",
-  "At <strong>Université de Moncton</strong>, AI guidance is closely tied to integrity frameworks, bilingual context shapes how responsibility and authorship are discussed.",
-  "Some universities centralize AI guidance institution-wide, <strong>University of Alberta</strong> does this explicitly, others leave interpretation to faculties and departments.",
-  "Reading AI guidance side by side reveals a pattern, universities differ less on what instructors should do, and more on who they think should decide."
-];
-
-
-(function renderRandomInsight() {
-  const el = document.getElementById("random-insight");
-  if (!el) return;
-  const pick = REFLECTION_INSIGHTS[Math.floor(Math.random() * REFLECTION_INSIGHTS.length)];
-  el.innerHTML = pick;
-})();
-
-
-/**
- * Init
- */
-(function init(){
-  const now = new Date();
-  document.getElementById("last-updated").innerText =
-    now.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
-
-  const provinces = Array.from(new Set(data.map(d => d.province))).sort((a,b) => a.localeCompare(b));
-  renderNav(provinces);
-
-  renderTagFilters();
-  renderSections();
-})();
+  // Deep link to a single institution: index.html#university-of-toronto
+  const target = location.hash.slice(1);
+  if (target && MODEL.byId[target]) {
+    open.add(target);
+    render();
+    const card = document.getElementById(target);
+    card.scrollIntoView({ block: "center" });
+    card.classList.add("card--target");
+  }
+  refreshCmpBar();
+});
 </script>
-
 </body>
 </html>
